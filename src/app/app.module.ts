@@ -11,6 +11,9 @@ import { RegisterComponent } from './login/register.component';
 
 // modules
 import { PagesModule } from './pages/pages.module';
+import { IncrementadorComponent } from './components/incrementador/incrementador.component';
+import { FormsModule } from '@angular/forms';
+import { GraficoDonaComponent } from './components/grafico-dona/grafico-dona.component';
 
 
 @NgModule({
@@ -22,7 +25,8 @@ import { PagesModule } from './pages/pages.module';
   imports: [
     BrowserModule,
     PagesModule,
-    APP_ROUTES
+    APP_ROUTES,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
