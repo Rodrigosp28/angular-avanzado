@@ -12,23 +12,30 @@ import { RegisterComponent } from './login/register.component';
 // modules
 import { PagesModule } from './pages/pages.module';
 import { IncrementadorComponent } from './components/incrementador/incrementador.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GraficoDonaComponent } from './components/grafico-dona/grafico-dona.component';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { LoginGuard } from './shared/seguridad/login-guard.service';
+import { SinDatosComponent } from './components/sin-datos/sin-datos.component';
+import { ErrorComponent } from './components/error/error.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     PagesModule,
     APP_ROUTES,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule 
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [LoginGuard],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

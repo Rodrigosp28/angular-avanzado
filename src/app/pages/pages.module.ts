@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import {FormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,6 +13,10 @@ import { PAGES_ROUTES } from './pages.routes';
 import { IncrementadorComponent } from '../components/incrementador/incrementador.component';
 import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.component';
 import { CommonModule } from '@angular/common';
+import { ProductoListComponent } from './productos/producto-list/producto-list.component';
+import { ProductoFormComponent } from './productos/producto-form/producto-form.component';
+import { AppModule } from '../app.module';
+import { ComponentModule } from '../components/components.module';
 
 @NgModule({
   declarations:[
@@ -21,20 +25,26 @@ import { CommonModule } from '@angular/common';
     ProgressComponent,
     PagesComponent,
     IncrementadorComponent,
-    GraficoDonaComponent
+    GraficoDonaComponent,
+    ProductoListComponent,
+    ProductoFormComponent
   ],
   imports: [
     SharedModule,
     CommonModule,
     PAGES_ROUTES,
     FormsModule,
-    ChartsModule
+    ChartsModule,
+    ComponentModule,
+    ReactiveFormsModule
   ],
   exports: [
     DashboardComponent,
     Graficas1Component,
     ProgressComponent,
-    PagesComponent
+    PagesComponent,
+    ProductoListComponent,
+    ProductoFormComponent
   ]
 })
 export class PagesModule {}

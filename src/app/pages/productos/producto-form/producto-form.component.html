@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <a [routerLink]="['/producto']">
+          <i class="fas fa-arrow-left"></i>...Regresar</a>
+        <h3>{{title}}</h3>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="forma"
+              class="form"
+              #f="ngForm">
+        <div class="row">
+          <div class="col-md-4">
+              <div class="form-group">
+                <label for="nombre">Nombre Producto:</label>
+                <input type="text"
+                       class="form-control"
+                       id="nombre"
+                       name="nombre"
+                       autocomplete="off"
+                       formControlName="fnombre"
+                       [(ngModel)]="producto.nombre">
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                <label for="categoria">Categoria:</label>
+                <select class="form-control"
+                        id="categoria"
+                        name="categoria"
+                        formControlName="fcategoria"
+                        [(ngModel)]="producto.idCategoria">
+                  <option value="0">Seleccionar</option>
+                  <option *ngFor="let categoria of categorias"
+                          [value]="categoria.idCategoria">{{ categoria.descripcion}}</option>
+                </select>
+              </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="precio">Precio:</label>
+              <input type="number"
+                     class="form-control"
+                     id="precio"
+                     name="precio"
+                     autocomplete="off"
+                     formControlName="fprecio"
+                     [(ngModel)]="producto.precio" >
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="disponible">Disponible:</label>
+              <select class="form-control"
+                      id="disponible"
+                      name="disponible"
+                      formControlName="fdisponible"
+                      [(ngModel)]="producto.idDisponible">
+                <option value="0">Seleccionar</option>
+                <option *ngFor="let disponible of disponibles"
+                        [value]="disponible.idDisponible">{{ disponible.descripcion }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-8">
+              <div class="form-group">
+                <label for="descripcion">descripcion:</label>
+                <textarea class="form-control"
+                          name="descripcion"
+                          id="descripcion"
+                          formControlName="fdescripcion"
+                          [(ngModel)]="producto.descripcion"></textarea>
+              </div>
+          </div>
+         </div>
+        <button *ngIf="nuevo" class="btn btn-primary" (click)="postProducto(f)" >Guardar</button>
+        <button *ngIf="!nuevo" class="btn btn-success" (click)="putProducto(f)" >Actualizar</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<div *ngIf="!nuevo" class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Imagenes del Producto: {{imagenes.length}} <small> Maximo 4 imagenes</small></h3>
+        <button type="button" *ngIf="imagenes.length<4" (click)="modalImagen()" class="btn btn-success">Agregar</button>
+      </div>
+      <div class="card-body">
+        <div *ngIf="imagenes.length===0" class="row">
+          <div class="col-md-12">
+            <app-sin-datos></app-sin-datos>
+          </div>
+        </div>
+        <div *ngIf="imagenes.length>0" class="row">
+        <div *ngFor="let imagen of imagenes" class="col-md-3">
+          <div class="row">
+            <img [src]="'http://localhost:83/api/producto/imagen/'+imagen.idEmpresa.toString()+'/'+imagen.idProducto.toString()+'/'+imagen.imagen" alt="" width="250" height="200" > 
+          </div>
+          <div class="row">
+            <button class="btn btn-danger" (click)="deleteImagen(imagen.idEmpresa,imagen.idProducto,imagen.imagen)">Eliminar</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade text-left" 
+     id="imagenModal" 
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="myModalLabel8"
+     aria-hidden="true"
+     data-backdrop="false">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header bg-primary white">
+      <h4 style="color: white;" class="modal-title" id="myModalLabel8">Agregar Imagen</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="imagen">Direccion de Imagen</label>
+        <input type="file" 
+               class="form-control" 
+               name="imagen"
+               (change)="archivoselect($event.target.files)">
+    </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+      <button type="button" 
+              class="btn btn-outline-primary"
+              (click)="subirImagen()">
+              Guardar Imagen</button>
+    </div>
+  </div>
+</div>
+</div>

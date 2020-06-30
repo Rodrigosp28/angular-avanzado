@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3>Productos</h3>
+      </div>
+      <div class="card-body">
+        <div class="row pb-2">
+          <div class="col-md-8">
+            <h4>Registrados: {{productos.length}}</h4>
+          </div>
+          <div class="col-md-4 text-right">
+            <a  [routerLink]="['/producto/add']"
+                  class="btn btn-primary btn-min-width mr-1 mb-1">
+                Agregar producto <i class="fa fa-plus-circle"></i>
+              </a>
+          </div>
+        </div>
+        <div class="row" *ngIf="!loading && !error && productos.length>0">
+          <div class="col-md-12">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Disponible</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Tools</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let producto of productos; let i=index"
+                    class=""
+                    [ngClass] ="{'table-success': producto.idDisponible===1,'table-danger':producto.idDisponible===2}">
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{producto.nombre}}</td>
+                  <td>{{producto.precio | currency}}</td>
+                  <td>{{producto.disponible.descripcion}}</td>
+                  <td>{{producto.categoria.descripcion}}</td>
+                  <td>
+                    <a
+                    style="color: rgb(34, 221, 65);"
+                    title="Actualizar Producto"
+                    [routerLink]="['/producto',producto.idProducto]">
+                    <i class="fas fa-pen-square fa-2x mr-2"></i>
+                   </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <app-loading *ngIf="loading"></app-loading>
+            <app-error *ngIf="error"></app-error>
+            <app-sin-datos *ngIf="!loading && !error && productos.length === 0"></app-sin-datos>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
